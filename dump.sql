@@ -11,7 +11,7 @@ CREATE TABLE "users" (
 CREATE TABLE "sessions" (
   "id" SERIAL PRIMARY KEY,
   "userId" INTEGER NOT NULL REFERENCES "users"("id"),
-  "active" BOOL DEFAULT FALSE NOT NULL,
+  "active" BOOL DEFAULT TRUE NOT NULL,
   "token" TEXT NOT NULL,
   "createdAt" TIMESTAMP DEFAULT NOW() NOT NULL
 );
