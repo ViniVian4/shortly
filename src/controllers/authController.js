@@ -68,4 +68,29 @@ async function login(req, res) {
     }
 }
 
-export { register, login };
+async function logout (req, res) {
+    const token = req.headers.authorization?.replace("Bearer ", "");
+
+    if (!token) {
+        return res.sendStatus(401);
+    }
+
+    try {
+        const session = await connection.query(`SELECT * FROM sessions
+        WHERE active = TRUE AND "token" = $1`, [token]);
+
+        if (!session) {
+            return res.sendStatus(401);
+        }
+
+        await connection.query(`UPDATE sessions SET "active" = FALSE
+            WHERE "token" = $1`, [token]);
+        
+            return res.sendStatus(200);
+    } catch (error) {
+        console.error(error);
+        return res.sendStatus(500);
+    }
+}
+
+export { register, login, logout };
