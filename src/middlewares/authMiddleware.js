@@ -1,4 +1,4 @@
-import { authSchema } from "../schemas/authSchema.js"
+import { registerSchema } from "../schemas/authSchema.js"
 
 async function verifyRegister (req, res, next) {
     let { name, email, password, confirmPassword } = req.body;
@@ -6,7 +6,7 @@ async function verifyRegister (req, res, next) {
     email = email.trim();
     password = password.trim();
 
-    const isValid = authSchema.validate({ name, email, password });
+    const isValid = registerSchema.validate({ name, email, password });
     if (isValid.error) {
         return res.sendStatus(422);
     }
@@ -21,4 +21,4 @@ async function verifyRegister (req, res, next) {
     next();
 }
 
-export default verifyRegister;
+export { verifyRegister };
