@@ -2,7 +2,6 @@ import { registerSchema, loginSchema } from "../schemas/authSchema.js"
 
 async function verifyRegister (req, res, next) {
     let { name, email, password, confirmPassword } = req.body;
-    name = name.trim();
     email = email.trim();
     password = password.trim();
 
